@@ -3,6 +3,7 @@ package org.kurron.profile
 import org.junit.Test
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests
 
@@ -14,9 +15,12 @@ class ProfileIntegrationTest extends AbstractJUnit4SpringContextTests
 {
     private final Logger logger = LoggerFactory.getLogger( ProfileIntegrationTest.class )
 
+    @Autowired
+    private MessageGenerator theMessageGenerator;
+
     @Test
     public void given_when_then() {
-        logger.debug( 'Hello, world!' )
+        logger.error( theMessageGenerator.message() )
     }
 
 }
