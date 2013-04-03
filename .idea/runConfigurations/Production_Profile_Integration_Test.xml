@@ -8,7 +8,7 @@
     <option name="MAIN_CLASS_NAME" value="org.kurron.profile.ProfileIntegrationTest" />
     <option name="METHOD_NAME" value="" />
     <option name="TEST_OBJECT" value="class" />
-    <option name="VM_PARAMETERS" value="-ea -Dspring.profiles.active=&quot;production&quot;" />
+    <option name="VM_PARAMETERS" value="-ea -Dspring.profiles.active=&quot;production&quot; -Dlogback.configurationFile=logback-production.xml" />
     <option name="PARAMETERS" value="" />
     <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
     <option name="ENV_VARIABLES" />
@@ -18,7 +18,13 @@
     </option>
     <envs />
     <patterns />
+    <RunnerSettings RunnerId="Debug">
+      <option name="DEBUG_PORT" value="" />
+      <option name="TRANSPORT" value="0" />
+      <option name="LOCAL" value="true" />
+    </RunnerSettings>
     <RunnerSettings RunnerId="Run" />
+    <ConfigurationWrapper RunnerId="Debug" />
     <ConfigurationWrapper RunnerId="Run" />
     <method />
   </configuration>

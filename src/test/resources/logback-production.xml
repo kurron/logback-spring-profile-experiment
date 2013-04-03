@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="logging.directory" value="build/logs"/>
+    <property name="prefix" value="sush-e"/>
+    <property name="MESSAGE_FORMAT"
+              value="%8(%.-1level) %6.6mdc{sequence-number} %18.18mdc{time} %8.8mdc{application-type}:%-12.12mdc{application-instance} %-10.10mdc{work-unit} %-35.35logger{0} %4.4mdc{message-code} %message %throwable{short}%n"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${MESSAGE_FORMAT}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ALL</level>
+        </filter>
+    </appender>
+
+    <appender name="OPERATIONS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logging.directory}/${prefix}-log-for-operations-%d{yyyy-MM-dd}.txt</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${MESSAGE_FORMAT}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+    </appender>
+
+    <appender name="SUPPORT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logging.directory}/${prefix}-log-for-support-%d{yyyy-MM-dd}.txt</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${MESSAGE_FORMAT}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+    </appender>
+
+    <appender name="QA" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logging.directory}/${prefix}-log-for-qa-%d{yyyy-MM-dd}.txt</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${MESSAGE_FORMAT}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <appender name="DEVELOPMENT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logging.directory}/${prefix}-log-for-development-%d{yyyy-MM-dd}.txt</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${MESSAGE_FORMAT}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+    <logger name="com.transparent" level="INFO"/>
+
+    <logger name="org.apache" level="WARN"/>
+
+    <logger name="org.springframework" level="WARN"/>
+
+    <logger name="org.springframework.amqp" level="WARN"/>
+
+    <!-- Log all SQL DML statements as they are executed -->
+    <logger name="org.hibernate.SQL" level="OFF"/>
+
+    <!-- Log all JDBC parameters -->
+    <logger name="org.hibernate.type" level="OFF"/>
+
+    <!-- Log all SQL DDL statements as they are executed -->
+    <logger name="org.hibernate.tool.hbm2ddl" level="OFF"/>
+
+    <!-- Log the state of all entities (max 20 entities) associated with the session at flush time -->
+    <logger name="org.hibernate.pretty" level="OFF"/>
+
+    <root level="WARN">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="OPERATIONS"/>
+        <appender-ref ref="SUPPORT"/>
+        <appender-ref ref="QA"/>
+        <appender-ref ref="DEVELOPMENT"/>
+    </root>
+</configuration>
