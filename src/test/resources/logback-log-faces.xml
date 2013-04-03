@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <contextName>Logging Services</contextName>
+    <contextName>REMOTE</contextName>
     <property name="MESSAGE_FORMAT"
-              value="%8(%.-1level) %6.6mdc{sequence-number} %18.18mdc{time} %8.8mdc{application-type}:%-12.12mdc{application-instance} %-10.10mdc{work-unit} %-35.35logger{0} %4.4mdc{message-code} %message %throwable{short}%n"/>
+              value="%contextName %2(%.-1level) %6.6mdc{sequence-number} %18.18mdc{time} %8.8mdc{application-type}:%-12.12mdc{application-instance} %-10.10mdc{work-unit} %-35.35logger{0} %4.4mdc{message-code} %message %throwable{short}%n"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -27,25 +27,20 @@
     <logger name="com.transparent" level="ALL"/>
 
     <logger name="org.apache" level="WARN"/>
-
     <logger name="org.springframework" level="WARN"/>
-
     <logger name="org.springframework.amqp" level="WARN"/>
 
     <!-- Log all SQL DML statements as they are executed -->
     <logger name="org.hibernate.SQL" level="OFF"/>
-
     <!-- Log all JDBC parameters -->
     <logger name="org.hibernate.type" level="OFF"/>
-
     <!-- Log all SQL DDL statements as they are executed -->
     <logger name="org.hibernate.tool.hbm2ddl" level="OFF"/>
-
     <!-- Log the state of all entities (max 20 entities) associated with the session at flush time -->
     <logger name="org.hibernate.pretty" level="OFF"/>
 
     <!-- Default level of INFO, but appenders can override the value. Only LFS inherits. -->
-    <root level="INFO">
+    <root level="WARN">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="LFS"/>
     </root>

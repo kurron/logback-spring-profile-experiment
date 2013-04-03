@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+    <contextName>DEVELOPMENT</contextName>
     <property name="MESSAGE_FORMAT"
-              value="%8(%.-1level) %6.6mdc{sequence-number} %18.18mdc{time} %8.8mdc{application-type}:%-12.12mdc{application-instance} %-10.10mdc{work-unit} %-35.35logger{0} %4.4mdc{message-code} %message %throwable{short}%n"/>
+              value="%contextName %2(%.-1level) %6.6mdc{sequence-number} %18.18mdc{time} %8.8mdc{application-type}:%-12.12mdc{application-instance} %-10.10mdc{work-unit} %-35.35logger{0} %4.4mdc{message-code} %message %throwable{short}%n"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
