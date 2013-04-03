@@ -1,0 +1,102 @@
+apply plugin: 'groovy'
+apply plugin: 'project-report'
+
+ext {
+    // SpringSource Projects
+    springFrameworkVersion = '3.2.2.RELEASE'
+
+    // Runtime Dependencies
+    slf4jVersion = '1.7.2'
+    logbackVersion = '1.0.7'
+
+    // Testing Dependencies
+    junitVersion = '4.10'
+    hamcrestVersion =  '1.3'
+
+    // Groovy Runtime
+    groovyVersion = '2.1.2'
+}
+
+defaultTasks 'clean', 'collectJars', 'projectReport', 'build'
+
+repositories {
+    mavenCentral()
+    maven {
+        url "http://repo.springsource.org/libs-release"
+    }
+    maven {
+        url "http://repo.springsource.org/libs-milestone"
+    }
+    maven {
+        url "http://repo.springsource.org/libs-snapshot"
+    }
+}
+
+configurations {
+    all*.exclude group: 'commons-logging'
+    all*.exclude module: 'log4j'
+
+    sourceArchives {
+        description = 'Artifact that contains the source code of the dependencies.'
+    }
+}
+
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:${groovyVersion}:indy"
+
+    compile "org.springframework:spring-context:${springFrameworkVersion}"
+
+    compile "org.slf4j:slf4j-api:${slf4jVersion}"
+    compile "org.slf4j:slf4j-ext:${slf4jVersion}"
+
+    testCompile "org.springframework:spring-test:${springFrameworkVersion}"
+    testCompile "junit:junit-dep:${junitVersion}"
+    testCompile "org.hamcrest:hamcrest-all:${hamcrestVersion}"
+
+    runtime "org.slf4j:jcl-over-slf4j:${slf4jVersion}"
+    runtime "org.slf4j:jul-to-slf4j:${slf4jVersion}"
+    runtime "org.slf4j:log4j-over-slf4j:${slf4jVersion}"
+    runtime "ch.qos.logback:logback-classic:${logbackVersion}"
+    runtime "ch.qos.logback:logback-core:${logbackVersion}"
+
+
+    sourceArchives "org.codehaus.groovy:groovy-all:${groovyVersion}:sources"
+    sourceArchives "org.springframework:spring-aop:${springFrameworkVersion}:sources"
+    sourceArchives "org.springframework:spring-aspects:${springFrameworkVersion}:sources"
+    sourceArchives "org.springframework:spring-beans:${springFrameworkVersion}:sources"
+    sourceArchives "org.springframework:spring-context:${springFrameworkVersion}:sources"
+    sourceArchives "org.springframework:spring-context-support:${springFrameworkVersion}:sources"
+    sourceArchives "org.springframework:spring-core:${springFrameworkVersion}:sources"
+    sourceArchives "org.springframework:spring-expression:${springFrameworkVersion}:sources"
+    sourceArchives "org.springframework:spring-instrument:${springFrameworkVersion}:sources"
+    sourceArchives "org.springframework:spring-instrument-tomcat:${springFrameworkVersion}:sources"
+    sourceArchives "org.springframework:spring-jdbc:${springFrameworkVersion}:sources"
+    sourceArchives "org.springframework:spring-jms:${springFrameworkVersion}:sources"
+    sourceArchives "org.springframework:spring-orm:${springFrameworkVersion}:sources"
+    sourceArchives "org.springframework:spring-oxm:${springFrameworkVersion}:sources"
+    sourceArchives "org.springframework:spring-tx:${springFrameworkVersion}:sources"
+    sourceArchives "org.springframework:spring-struts:${springFrameworkVersion}:sources"
+    sourceArchives "org.springframework:spring-web:${springFrameworkVersion}:sources"
+    sourceArchives "org.springframework:spring-webmvc:${springFrameworkVersion}:sources"
+    sourceArchives "org.springframework:spring-webmvc-portlet:${springFrameworkVersion}:sources"
+
+    sourceArchives "org.slf4j:slf4j-api:${slf4jVersion}:sources"
+    sourceArchives "org.slf4j:slf4j-ext:${slf4jVersion}:sources"
+    sourceArchives "org.springframework:spring-test:${springFrameworkVersion}:sources"
+    sourceArchives "junit:junit-dep:${junitVersion}:sources"
+    sourceArchives "org.slf4j:jcl-over-slf4j:${slf4jVersion}:sources"
+    sourceArchives "org.slf4j:jul-to-slf4j:${slf4jVersion}:sources"
+    sourceArchives "org.slf4j:log4j-over-slf4j:${slf4jVersion}:sources"
+    sourceArchives "ch.qos.logback:logback-classic:${logbackVersion}:sources"
+    sourceArchives "ch.qos.logback:logback-core:${logbackVersion}:sources"
+    sourceArchives "org.hamcrest:hamcrest-all:${hamcrestVersion}:sources"
+}
+
+task generateWrapper(type: Wrapper) {
+    gradleVersion = '1.5'
+}
+
+task collectJars(type: Copy) {
+    into "$rootDir/build/dependencies"
+    from( [configurations.testRuntime,configurations.sourceArchives] )
+}
